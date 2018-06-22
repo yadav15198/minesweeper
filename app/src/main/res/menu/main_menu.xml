@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:id="@+id/item1"
+    android:title="reset"
+    android:visible="true"
+    app:showAsAction="always|withText"
+    />
+    <item android:id="@+id/item2"
+        android:title="leval">
+        <menu>
+            <group android:id="@+id/group1">
+                <item android:id="@+id/size5"
+                    android:title="5X5"/>
+    <item
+        android:id="@+id/size7"
+        android:title="7X7"/>
+    <item android:id="@+id/size10"
+        android:title="10X10"/>
+            </group>
+        </menu>
+    </item>
+</menu>
