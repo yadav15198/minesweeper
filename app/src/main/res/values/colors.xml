@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff40dc</color>
     <color name="mix">#ffffff</color>
+    <color name="sds">#e3e3e3</color>
+    <color name="mnp">#ffffff</color>
+    <color name="atp">#ffffff</color>
 </resources>

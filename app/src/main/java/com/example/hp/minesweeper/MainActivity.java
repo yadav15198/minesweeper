@@ -110,6 +110,7 @@ public void setNeighbour() {
                 button.setLayoutParams(layoutParams);
                 LinearLayout row = rows.get(i);
                 row.addView(button);
+                button.setBackground(getResources().getDrawable(R.drawable.mine));
                 button.i = i;
                 button.j = j;
                 button.setOnLongClickListener(this);
@@ -172,6 +173,8 @@ public boolean onOptionsItemSelected(MenuItem item){
     }
 public void revealneighbour(MS button) {
     button.setText(button.value + "");
+    button.setEnabled(false);
+    button.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_launcher_background));
     int X, Y;
     MS newbutton = null;
     button.isRevealed = true;
@@ -184,25 +187,62 @@ public void revealneighbour(MS button) {
             newbutton = board[X][Y];
             if (newbutton.value == 0 && !newbutton.isRevealed) {
                 newbutton.setText(newbutton.value + "");
+                button.setEnabled(false);
+                button.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_launcher_background));
                 revealneighbour(newbutton);
             } else {
+               // button.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_launcher_background));
                 if(newbutton.getValue() > 0) {
                     newbutton.setText(newbutton.value + "");
+                    button.setEnabled(false);
+                  // button.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_launcher_background));
                     newbutton.isRevealed = true;
                 }
             }
         }
     }
 }
+public  boolean isGameOver(){
+        MS button = null;
+        int count = No_Of_Mines,j;
+    for(int i = 0 ;i<size1; i++) {
+        for (j = 0; j < size2; j++) {
+            button = board[i][j];
+
+            if(button.isFlagged){
+                if(button.getValue() == -1 ){
+                    count--;
+                }
+                else
+                {
+                    count =10;
+                    break;
+                }
+        }
+    }
+    if(j<size2)
+   break;
+}
+    if(count==0){
+        return true;
+    }
+    return false;
+    }
 
     @Override
     public void onClick(View view) {
-     MS button = (MS)view;
-     if(button.getValue() > 0){
-      button.setText(button.value + "");
-      button.isRevealed = true;
+       if(isGameOver()) {
+           Toast.makeText(this, "YOU WON", Toast.LENGTH_SHORT).show();
+           return;
+       }
+         MS button = (MS)view;
+
+         if(button.getValue() > 0){
+             button.setText(button.value + "");
+            // button.setEnabled(false);
+              button.isRevealed = true;
      }
-     else if(button.getValue() == -1){
+           else if(button.getValue() == -1){
 
             MS mbutton = null;
             for(int i = 0; i<size1; i++){
@@ -214,11 +254,12 @@ public void revealneighbour(MS button) {
                 }
             }
             showMines();
-         Toast.makeText(this,"GameOver",Toast.LENGTH_LONG).show();
+         Toast.makeText(this,"You lost",Toast.LENGTH_LONG).show();
         }
         else if(button.getValue() == 0){
          revealneighbour(button);
      }
+
     }
 
     @Override
@@ -232,6 +273,7 @@ public void revealneighbour(MS button) {
                 button.setText("");
                 button.isFlagged = false;
 
+            isGameOver();
         }
 
         return true;
