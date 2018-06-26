@@ -231,10 +231,6 @@ public  boolean isGameOver(){
 
     @Override
     public void onClick(View view) {
-       if(isGameOver()) {
-           Toast.makeText(this, "YOU WON", Toast.LENGTH_SHORT).show();
-           return;
-       }
          MS button = (MS)view;
 
          if(button.getValue() > 0){
@@ -259,6 +255,10 @@ public  boolean isGameOver(){
         else if(button.getValue() == 0){
          revealneighbour(button);
      }
+        if(isGameOver()) {
+            Toast.makeText(this, "YOU WON", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
     }
 
@@ -269,11 +269,13 @@ public  boolean isGameOver(){
            // button.setBackgroundDrawable(getResources().getDrawable(R.drawable.flag));
             button.setText("F");
             button.isFlagged = true;
+            if(isGameOver()) {
+                Toast.makeText(this, "YOU WON", Toast.LENGTH_SHORT).show();
+            }
         } else {
                 button.setText("");
                 button.isFlagged = false;
 
-            isGameOver();
         }
 
         return true;
